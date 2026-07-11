@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AgroIndustrieApp from "./AgroIndustrieApp.jsx";
 
 import Header from "./components/portail/Header";
@@ -10,18 +10,53 @@ import NosSolutions from "./components/portail/NosSolutions";
 import NosPrestations from "./components/portail/NosPrestations";
 import Documentation from "./components/portail/Documentation";
 import Contact from "./components/portail/Contact";
+import EssayerStranalyx from "./components/portail/EssayerStranalyx";
+
+const getVueDepuisUrl = () => {
+  const vue = window.location.hash.replace("#", "");
+
+  return vue || "portail";
+};
 
 export default function App() {
-  const [vueActive, setVueActive] = useState("portail");
+  const [vueActive, setVueActive] = useState(getVueDepuisUrl);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setVueActive(getVueDepuisUrl());
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  const navigate = (page) => {
+    if (page === "portail") {
+      window.history.pushState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+
+      setVueActive("portail");
+      return;
+    }
+
+    window.location.hash = page;
+    setVueActive(page);
+  };
 
   if (vueActive === "agro") {
     return (
       <>
         <button
           style={backButtonStyle}
-          onClick={() => setVueActive("portail")}
+          onClick={() => navigate("essayer")}
         >
-          ← Retour au portail
+          ← Retour aux solutions
         </button>
 
         <AgroIndustrieApp />
@@ -32,7 +67,7 @@ export default function App() {
   if (vueActive === "histoire") {
     return (
       <>
-        <Header onNavigate={setVueActive} />
+        <Header onNavigate={navigate} />
         <NotreHistoire />
         <Footer />
       </>
@@ -40,51 +75,61 @@ export default function App() {
   }
 
   if (vueActive === "solutions") {
-  return (
-    <>
-      <Header onNavigate={setVueActive} />
-      <NosSolutions />
-      <Footer />
-    </>
-  );
-}
+    return (
+      <>
+        <Header onNavigate={navigate} />
+        <NosSolutions />
+        <Footer />
+      </>
+    );
+  }
 
-if (vueActive === "prestations") {
-  return (
-    <>
-      <Header onNavigate={setVueActive} />
-      <NosPrestations />
-      <Footer />
-    </>
-  );
-}
+  if (vueActive === "prestations") {
+    return (
+      <>
+        <Header onNavigate={navigate} />
+        <NosPrestations />
+        <Footer />
+      </>
+    );
+  }
 
-if (vueActive === "documentation") {
-  return (
-    <>
-      <Header onNavigate={setVueActive} />
-      <Documentation />
-      <Footer />
-    </>
-  );
-}
+  if (vueActive === "documentation") {
+    return (
+      <>
+        <Header onNavigate={navigate} />
+        <Documentation />
+        <Footer />
+      </>
+    );
+  }
 
-if (vueActive === "contact") {
-  return (
-    <>
-      <Header onNavigate={setVueActive} />
-      <Contact />
-      <Footer />
-    </>
-  );
-}
+  if (vueActive === "essayer") {
+    return (
+      <>
+        <Header onNavigate={navigate} />
+        <EssayerStranalyx onNavigate={navigate} />
+        <Footer />
+      </>
+    );
+  }
+
+  if (vueActive === "contact") {
+    return (
+      <>
+        <Header onNavigate={navigate} />
+        <Contact />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <div>
-      <Header onNavigate={setVueActive} />
+      <Header onNavigate={navigate} />
 
       <main>
-        <Hero onNavigate={setVueActive} />
+        <Hero onNavigate={navigate} />
         <TrustBar />
       </main>
 
@@ -104,4 +149,5 @@ const backButtonStyle = {
   borderRadius: "10px",
   padding: "10px 16px",
   fontWeight: "800",
+  cursor: "pointer",
 };
