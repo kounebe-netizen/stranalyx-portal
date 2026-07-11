@@ -186,7 +186,14 @@ export default function Header({ onNavigate }) {
             color={colors.text}
             />
             <button
-          onClick={() => navigate("essayer")}
+            type="button"
+            onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            alert("CLIC ESSAYER MOBILE");
+            setMenuOpen(false);
+            onNavigate?.("essayer");
+            }}
           style={{
           width: "100%",
           marginTop: "24px",
