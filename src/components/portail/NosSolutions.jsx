@@ -12,18 +12,44 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+import useBreakpoint from "../../hooks/useBreakpoint";
+
 const privateApps = [
-  { icon: Wheat, text: "Production de sucre à partir de la culture de la canne à sucre" },
-  { icon: Sprout, text: "Production de riz pluvial et de contre-saison" },
-  { icon: Sprout, text: "Production, collecte et exportation de sésame" },
-  { icon: Factory, text: "Production de granulats par abattage, concassage et commercialisation de roche" },
-  { icon: Grape, text: "Production et transformation viticole : vin et jus de fruits" },
+  {
+    icon: Wheat,
+    text: "Production de sucre à partir de la culture de la canne à sucre",
+  },
+  {
+    icon: Sprout,
+    text: "Production de riz pluvial et de contre-saison",
+  },
+  {
+    icon: Sprout,
+    text: "Production, collecte et exportation de sésame",
+  },
+  {
+    icon: Factory,
+    text: "Production de granulats par abattage, concassage et commercialisation de roche",
+  },
+  {
+    icon: Grape,
+    text: "Production et transformation viticole : vin et jus de fruits",
+  },
 ];
 
 const publicApps = [
-  { icon: Handshake, text: "Projet triennal de la Délégation du SECADEV de Bousso" },
-  { icon: Landmark, text: "Programme DDR : Désarmement, Démobilisation et Réinsertion" },
-  { icon: HeartPulse, text: "Projet MSF – Cité Soleil, Haïti" },
+  {
+    icon: Handshake,
+    text: "Projet triennal de la Délégation du SECADEV de Bousso",
+  },
+  {
+    icon: Landmark,
+    text: "Programme DDR : Désarmement, Démobilisation et Réinsertion",
+  },
+  {
+    icon: HeartPulse,
+    text: "Projet MSF – Cité Soleil, Haïti",
+  },
 ];
 
 const b2bApps = [
@@ -36,36 +62,105 @@ const b2bApps = [
 ];
 
 export default function NosSolutions() {
-  return (
-    <main style={{ background: "#FFFFFF", minHeight: "100vh" }}>
-      <section style={pageStyle}>
-        <div style={heroStyle}>
-          <div>
-            <h1 style={heroTitleStyle}>
-              Des applications conçues à partir d'expériences réelles
-            </h1>
+  const { isMobileOrTablet } = useBreakpoint();
 
-            <p style={heroTextStyle}>
+  return (
+    <main
+      style={{
+        background: "#FFFFFF",
+        minHeight: "100vh",
+        overflowX: "hidden",
+      }}
+    >
+      <section
+        style={{
+          ...pageStyle,
+          padding: isMobileOrTablet
+            ? "32px 20px 60px"
+            : "46px 40px 80px",
+        }}
+      >
+        {isMobileOrTablet ? (
+          <div
+            style={{
+              ...heroStyle,
+              gridTemplateColumns: "1fr 1fr",
+              gap: "16px",
+              alignItems: "start",
+            }}
+          >
+            <div>
+              <h1
+                style={{
+                  ...heroTitleStyle,
+                  fontSize: "34px",
+                  lineHeight: "1.08",
+                }}
+              >
+                Des applications conçues à partir d'expériences réelles
+              </h1>
+            </div>
+
+            <div
+              style={{
+                ...heroBadgeStyle,
+                minHeight: "220px",
+                padding: "20px",
+                fontSize: "18px",
+              }}
+            >
+              <Globe2 size={42} />
+              <span>Une plateforme unique, plusieurs métiers</span>
+            </div>
+
+            <p
+              style={{
+                ...heroTextStyle,
+                gridColumn: "1 / -1",
+                textAlign: "center",
+              }}
+            >
               Stranalyx est une plateforme de projection, de pilotage et
               d'évaluation des activités. Les applications présentées ci-dessous
               sont issues d'expériences opérationnelles réelles et peuvent être
               adaptées à d'autres secteurs d'activité.
             </p>
           </div>
+        ) : (
+          <div style={heroStyle}>
+            <div>
+              <h1 style={heroTitleStyle}>
+                Des applications conçues à partir d'expériences réelles
+              </h1>
 
-          <div style={heroBadgeStyle}>
-            <Globe2 size={42} />
-            <span>Une plateforme unique, plusieurs métiers</span>
+              <p style={heroTextStyle}>
+                Stranalyx est une plateforme de projection, de pilotage et
+                d'évaluation des activités. Les applications présentées
+                ci-dessous sont issues d'expériences opérationnelles réelles et
+                peuvent être adaptées à d'autres secteurs d'activité.
+              </p>
+            </div>
+
+            <div style={heroBadgeStyle}>
+              <Globe2 size={42} />
+              <span>Une plateforme unique, plusieurs métiers</span>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div style={cardsGridStyle}>
+        <div
+          style={{
+            ...cardsGridStyle,
+            gridTemplateColumns: isMobileOrTablet ? "1fr" : "1fr 1fr",
+          }}
+        >
           <SolutionCard
             icon={Building2}
             title="Entreprises privées"
             subtitle="Premières applications disponibles"
             items={privateApps}
             note="Stranalyx peut être configuré pour accompagner toute entreprise privée souhaitant améliorer la projection, le pilotage et l'évaluation de ses activités."
+            isMobileOrTablet={isMobileOrTablet}
           />
 
           <SolutionCard
@@ -74,13 +169,30 @@ export default function NosSolutions() {
             subtitle="Premières applications disponibles"
             items={publicApps}
             note="La plateforme s'adapte aux institutions publiques, collectivités territoriales, associations, ONG, organisations internationales et programmes financés par les bailleurs."
+            isMobileOrTablet={isMobileOrTablet}
           />
 
-          <B2BCard />
+          <B2BCard isMobileOrTablet={isMobileOrTablet} />
         </div>
 
-        <div style={ctaStyle}>
-          <h2 style={ctaTitleStyle}>Votre activité ne figure pas encore ici ?</h2>
+        <div
+          style={{
+            ...ctaStyle,
+            marginLeft: isMobileOrTablet ? "-20px" : 0,
+            marginRight: isMobileOrTablet ? "-20px" : 0,
+            borderRadius: isMobileOrTablet ? "0" : "28px",
+            padding: isMobileOrTablet ? "30px 24px" : "34px 42px",
+          }}
+        >
+          <h2
+            style={{
+              ...ctaTitleStyle,
+              fontSize: isMobileOrTablet ? "26px" : "30px",
+            }}
+          >
+            Votre activité ne figure pas encore ici ?
+          </h2>
+
           <p style={ctaTextStyle}>
             Stranalyx peut être adapté à votre métier, à vos données et à vos
             méthodes de travail.
@@ -91,16 +203,42 @@ export default function NosSolutions() {
   );
 }
 
-function SolutionCard({ icon: Icon, title, subtitle, items, note }) {
+function SolutionCard({
+  icon: Icon,
+  title,
+  subtitle,
+  items,
+  note,
+  isMobileOrTablet,
+}) {
   return (
-    <article style={cardStyle}>
-      <div style={cardHeaderStyle}>
+    <article
+      style={{
+        ...cardStyle,
+        padding: isMobileOrTablet ? "24px 18px" : "32px",
+        minWidth: 0,
+      }}
+    >
+      <div
+        style={{
+          ...cardHeaderStyle,
+          gap: isMobileOrTablet ? "14px" : "18px",
+        }}
+      >
         <div style={iconBoxStyle}>
           <Icon size={30} />
         </div>
 
-        <div>
-          <h2 style={cardTitleStyle}>{title}</h2>
+        <div style={{ minWidth: 0 }}>
+          <h2
+            style={{
+              ...cardTitleStyle,
+              fontSize: isMobileOrTablet ? "22px" : "25px",
+            }}
+          >
+            {title}
+          </h2>
+
           <p style={cardSubtitleStyle}>{subtitle}</p>
         </div>
       </div>
@@ -125,23 +263,45 @@ function SolutionCard({ icon: Icon, title, subtitle, items, note }) {
   );
 }
 
-function B2BCard() {
+function B2BCard({ isMobileOrTablet }) {
   return (
-    <article style={{ ...cardStyle, gridColumn: "1 / -1" }}>
+    <article
+      style={{
+        ...cardStyle,
+        gridColumn: "1 / -1",
+        padding: isMobileOrTablet ? "24px 18px" : "32px",
+        minWidth: 0,
+      }}
+    >
       <div style={cardHeaderStyle}>
         <div style={iconBoxStyle}>
           <Search size={30} />
         </div>
 
-        <div>
-          <h2 style={cardTitleStyle}>B2B Explorer</h2>
+        <div style={{ minWidth: 0 }}>
+          <h2
+            style={{
+              ...cardTitleStyle,
+              fontSize: isMobileOrTablet ? "22px" : "25px",
+            }}
+          >
+            B2B Explorer
+          </h2>
+
           <p style={cardSubtitleStyle}>
             Intelligence commerciale et développement d'affaires
           </p>
         </div>
       </div>
 
-      <div style={b2bGridStyle}>
+      <div
+        style={{
+          ...b2bGridStyle,
+          gridTemplateColumns: isMobileOrTablet
+            ? "1fr"
+            : "repeat(3, 1fr)",
+        }}
+      >
         {b2bApps.map((item) => (
           <div key={item} style={b2bItemStyle}>
             <ArrowRight size={17} />
@@ -157,6 +317,7 @@ const pageStyle = {
   maxWidth: "1200px",
   margin: "0 auto",
   padding: "46px 40px 80px",
+  boxSizing: "border-box",
 };
 
 const heroStyle = {
@@ -197,6 +358,7 @@ const heroBadgeStyle = {
   fontSize: "20px",
   fontWeight: "800",
   padding: "28px",
+  boxSizing: "border-box",
 };
 
 const cardsGridStyle = {
@@ -211,6 +373,7 @@ const cardStyle = {
   border: "1px solid #E5ECF5",
   boxShadow: "0 20px 45px rgba(8,47,99,.10)",
   padding: "32px",
+  boxSizing: "border-box",
 };
 
 const cardHeaderStyle = {
@@ -223,6 +386,7 @@ const cardHeaderStyle = {
 const iconBoxStyle = {
   width: "62px",
   height: "62px",
+  minWidth: "62px",
   borderRadius: "20px",
   background: "#EAF2FF",
   color: "#0B57D0",
@@ -254,7 +418,7 @@ const itemsStyle = {
 
 const itemStyle = {
   display: "grid",
-  gridTemplateColumns: "38px 1fr",
+  gridTemplateColumns: "38px minmax(0, 1fr)",
   gap: "12px",
   alignItems: "center",
   color: "#324A5F",
@@ -298,6 +462,7 @@ const b2bItemStyle = {
   display: "flex",
   alignItems: "center",
   gap: "10px",
+  minWidth: 0,
 };
 
 const ctaStyle = {
@@ -307,6 +472,7 @@ const ctaStyle = {
   color: "#FFFFFF",
   padding: "34px 42px",
   textAlign: "center",
+  boxSizing: "border-box",
 };
 
 const ctaTitleStyle = {
