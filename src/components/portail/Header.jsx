@@ -244,11 +244,14 @@ export default function Header({ onNavigate }) {
         <button
         type="button"
         onClick={(event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        setMenuOpen(false);
-        onNavigate?.("essayer");
-        }}
+  event.preventDefault();
+  event.stopPropagation();
+
+  alert("CLIC ESSAYER MOBILE");
+
+  setMenuOpen(false);
+  onNavigate?.("essayer");
+}}
           style={{
             padding: "11px 18px",
             borderRadius: "12px",
