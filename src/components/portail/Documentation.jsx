@@ -11,6 +11,8 @@ import {
   FolderOpen,
 } from "lucide-react";
 
+import useBreakpoint from "../../hooks/useBreakpoint";
+
 const resources = [
   {
     category: "Documentation des applications",
@@ -97,6 +99,7 @@ const resources = [
 
 export default function Documentation() {
   const [searchTerm, setSearchTerm] = useState("");
+  const { isMobileOrTablet } = useBreakpoint();
 
   const filteredResources = useMemo(() => {
     const value = searchTerm.trim().toLowerCase();
@@ -118,30 +121,105 @@ export default function Documentation() {
   }, [searchTerm]);
 
   return (
-    <main style={{ background: "#FFFFFF", minHeight: "100vh" }}>
-      <section style={pageStyle}>
-        <div style={heroStyle}>
-          <div>
-            <p style={eyebrowStyle}>DOCUMENTATION</p>
+    <main
+      style={{
+        background: "#FFFFFF",
+        minHeight: "100vh",
+        overflowX: "hidden",
+      }}
+    >
+      <section
+        style={{
+          ...pageStyle,
+          padding: isMobileOrTablet
+            ? "32px 20px 20px"
+            : "46px 40px 24px",
+        }}
+      >
+        {isMobileOrTablet ? (
+          <div
+            style={{
+              ...heroStyle,
+              gridTemplateColumns: "1fr 1fr",
+              gap: "16px",
+              alignItems: "start",
+              marginBottom: "30px",
+            }}
+          >
+            <div>
+              <p style={eyebrowStyle}>DOCUMENTATION</p>
 
-            <h1 style={heroTitleStyle}>
-              Centre de documentation Stranalyx
-            </h1>
+              <h1
+                style={{
+                  ...heroTitleStyle,
+                  fontSize: "34px",
+                  lineHeight: "1.08",
+                  marginBottom: 0,
+                }}
+              >
+                Centre de documentation Stranalyx
+              </h1>
+            </div>
 
-            <p style={heroTextStyle}>
+            <div
+              style={{
+                ...heroPanelStyle,
+                minHeight: "220px",
+                padding: "20px",
+                fontSize: "16px",
+              }}
+            >
+              <BookOpen size={42} />
+              <span>
+                Une bibliothèque structurée pour apprendre, utiliser et
+                administrer Stranalyx
+              </span>
+            </div>
+
+            <p
+              style={{
+                ...heroTextStyle,
+                gridColumn: "1 / -1",
+                textAlign: "center",
+              }}
+            >
               Retrouvez la documentation fonctionnelle, technique et
               méthodologique de la plateforme, ainsi que les études de cas,
               modèles, tutoriels et historiques de versions.
             </p>
           </div>
+        ) : (
+          <div style={heroStyle}>
+            <div>
+              <p style={eyebrowStyle}>DOCUMENTATION</p>
 
-          <div style={heroPanelStyle}>
-            <BookOpen size={44} />
-            <span>Une bibliothèque structurée pour apprendre, utiliser et administrer Stranalyx</span>
+              <h1 style={heroTitleStyle}>
+                Centre de documentation Stranalyx
+              </h1>
+
+              <p style={heroTextStyle}>
+                Retrouvez la documentation fonctionnelle, technique et
+                méthodologique de la plateforme, ainsi que les études de cas,
+                modèles, tutoriels et historiques de versions.
+              </p>
+            </div>
+
+            <div style={heroPanelStyle}>
+              <BookOpen size={44} />
+              <span>
+                Une bibliothèque structurée pour apprendre, utiliser et
+                administrer Stranalyx
+              </span>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div style={searchBoxStyle}>
+        <div
+          style={{
+            ...searchBoxStyle,
+            padding: isMobileOrTablet ? "14px 16px" : "16px 20px",
+          }}
+        >
           <Search size={22} color="#0B57D0" />
 
           <input
@@ -149,29 +227,55 @@ export default function Documentation() {
             placeholder="Rechercher un document, un guide, une table ou un tutoriel..."
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            style={searchInputStyle}
+            style={{
+              ...searchInputStyle,
+              fontSize: isMobileOrTablet ? "15px" : "16px",
+              minWidth: 0,
+            }}
           />
         </div>
 
-        <div style={gridStyle}>
+        <div
+          style={{
+            ...gridStyle,
+            gridTemplateColumns: isMobileOrTablet ? "1fr" : "repeat(2, 1fr)",
+          }}
+        >
           {filteredResources.map((section) => {
             const Icon = section.icon;
 
             return (
-              <article key={section.category} style={cardStyle}>
+              <article
+                key={section.category}
+                style={{
+                  ...cardStyle,
+                  padding: isMobileOrTablet ? "24px 18px" : "28px",
+                  minWidth: 0,
+                }}
+              >
                 <div style={cardHeaderStyle}>
                   <div style={iconBoxStyle}>
                     <Icon size={27} />
                   </div>
 
-                  <h2 style={cardTitleStyle}>{section.category}</h2>
+                  <h2
+                    style={{
+                      ...cardTitleStyle,
+                      fontSize: isMobileOrTablet ? "20px" : "22px",
+                    }}
+                  >
+                    {section.category}
+                  </h2>
                 </div>
 
                 <div style={itemsStyle}>
                   {section.items.map((item) => (
                     <button key={item} type="button" style={itemStyle}>
-                      <span>{item}</span>
-                      <Download size={17} />
+                      <span style={{ minWidth: 0 }}>{item}</span>
+                      <Download
+                        size={17}
+                        style={{ flexShrink: 0 }}
+                      />
                     </button>
                   ))}
                 </div>
@@ -198,6 +302,7 @@ const pageStyle = {
   maxWidth: "1200px",
   margin: "0 auto",
   padding: "46px 40px 80px",
+  boxSizing: "border-box",
 };
 
 const heroStyle = {
@@ -247,6 +352,7 @@ const heroPanelStyle = {
   lineHeight: "1.5",
   fontWeight: "800",
   padding: "30px",
+  boxSizing: "border-box",
 };
 
 const searchBoxStyle = {
@@ -259,6 +365,8 @@ const searchBoxStyle = {
   padding: "16px 20px",
   boxShadow: "0 14px 32px rgba(8,47,99,.08)",
   marginBottom: "34px",
+  boxSizing: "border-box",
+  minWidth: 0,
 };
 
 const searchInputStyle = {
@@ -282,6 +390,7 @@ const cardStyle = {
   border: "1px solid #E5ECF5",
   boxShadow: "0 18px 42px rgba(8,47,99,.09)",
   padding: "28px",
+  boxSizing: "border-box",
 };
 
 const cardHeaderStyle = {
@@ -294,6 +403,7 @@ const cardHeaderStyle = {
 const iconBoxStyle = {
   width: "54px",
   height: "54px",
+  minWidth: "54px",
   borderRadius: "18px",
   background: "#EAF2FF",
   color: "#0B57D0",
@@ -330,6 +440,8 @@ const itemStyle = {
   fontSize: "15px",
   fontWeight: "700",
   cursor: "pointer",
+  boxSizing: "border-box",
+  minWidth: 0,
 };
 
 const emptyStyle = {
