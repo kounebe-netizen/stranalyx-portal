@@ -76,8 +76,8 @@ export default function NosSolutions() {
         style={{
           ...pageStyle,
           padding: isMobileOrTablet
-            ? "32px 20px 60px"
-            : "46px 40px 80px",
+          ? "32px 20px 20px"
+          : "46px 40px 24px",
         }}
       >
         {isMobileOrTablet ? (
