@@ -190,7 +190,6 @@ export default function Header({ onNavigate }) {
             onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();
-            alert("CLIC ESSAYER MOBILE");
             setMenuOpen(false);
             onNavigate?.("essayer");
             }}
