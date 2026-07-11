@@ -47,18 +47,7 @@ export default function Hero({ onNavigate }) {
           en <strong> résultats concrets.</strong>
         </div>
 
-        <button
-          onClick={() => onNavigate?.("solutions")}
-          style={{
-            ...ctaStyle,
-            width: isMobileOrTablet ? "100%" : "auto",
-            maxWidth: isMobileOrTablet ? "320px" : "none",
-            display: "block",
-            margin: isMobileOrTablet ? "22px auto 0" : ctaStyle.marginTop,
-          }}
-        >
-          Découvrir nos solutions ›
-        </button>
+        
       </div>
 
       <div
@@ -155,18 +144,7 @@ const noteStyle = {
   color: portalTheme.colors.text,
 };
 
-const ctaStyle = {
-  marginTop: "22px",
-  background: portalTheme.colors.actionBlue,
-  color: "#FFFFFF",
-  border: "none",
-  borderRadius: "18px",
-  padding: "13px 24px",
-  fontWeight: 900,
-  fontSize: "16px",
-  boxShadow: portalTheme.shadow.button,
-  cursor: "pointer",
-};
+
 
 const rightStyle = {
   textAlign: "center",
