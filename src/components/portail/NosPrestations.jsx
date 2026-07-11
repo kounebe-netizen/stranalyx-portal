@@ -130,61 +130,61 @@ export default function NosPrestations() {
         }}
       >
         {isMobileOrTablet ? (
-          <div
-            style={{
-              ...heroStyle,
-              gridTemplateColumns: "1fr 1fr",
-              gap: "16px",
-              alignItems: "start",
-              marginBottom: "34px",
-            }}
-          >
-            <div>
-              <p style={eyebrowStyle}>NOS PRESTATIONS</p>
+  <div
+    style={{
+      ...heroStyle,
+      gridTemplateColumns: "1fr",
+      gap: "24px",
+      alignItems: "stretch",
+      marginBottom: "34px",
+    }}
+  >
+    <div>
+      <p style={eyebrowStyle}>NOS PRESTATIONS</p>
 
-              <h1
-                style={{
-                  ...heroTitleStyle,
-                  fontSize: "34px",
-                  lineHeight: "1.08",
-                  marginBottom: 0,
-                }}
-              >
-                Bien plus qu'un logiciel : un accompagnement complet.
-              </h1>
-            </div>
+      <h1
+        style={{
+          ...heroTitleStyle,
+          fontSize: "34px",
+          lineHeight: "1.08",
+          marginBottom: 0,
+          textAlign: "center",
+        }}
+      >
+        Bien plus qu'un logiciel : un accompagnement complet.
+      </h1>
+    </div>
 
-            <div
-              style={{
-                ...heroPanelStyle,
-                minHeight: "220px",
-                padding: "20px",
-                gap: "10px",
-                flexDirection: "column",
-                flexWrap: "nowrap",
-              }}
-            >
-              <div style={heroPanelLineStyle}>Analyser</div>
-              <ArrowRight size={22} />
-              <div style={heroPanelLineStyle}>Mettre en œuvre</div>
-              <ArrowRight size={22} />
-              <div style={heroPanelLineStyle}>Accompagner</div>
-            </div>
+    <div
+      style={{
+        ...heroPanelStyle,
+        width: "100%",
+        minHeight: "auto",
+        padding: "24px 20px",
+        gap: "12px",
+        flexDirection: "column",
+        flexWrap: "nowrap",
+      }}
+    >
+      <div style={heroPanelLineStyle}>Analyser</div>
+      <ArrowRight size={22} />
+      <div style={heroPanelLineStyle}>Mettre en œuvre</div>
+      <ArrowRight size={22} />
+      <div style={heroPanelLineStyle}>Accompagner</div>
+    </div>
 
-            <p
-              style={{
-                ...heroTextStyle,
-                gridColumn: "1 / -1",
-                textAlign: "center",
-              }}
-            >
-              La réussite d'un projet ne dépend pas uniquement de l'outil
-              utilisé. Elle repose aussi sur une bonne compréhension des
-              besoins, une mise en œuvre adaptée et un accompagnement dans la
-              durée.
-            </p>
-          </div>
-        ) : (
+    <p
+      style={{
+        ...heroTextStyle,
+        textAlign: "center",
+      }}
+    >
+      La réussite d'un projet ne dépend pas uniquement de l'outil utilisé. Elle
+      repose aussi sur une bonne compréhension des besoins, une mise en œuvre
+      adaptée et un accompagnement dans la durée.
+    </p>
+  </div>
+) : (
           <div style={heroStyle}>
             <div>
               <p style={eyebrowStyle}>NOS PRESTATIONS</p>
