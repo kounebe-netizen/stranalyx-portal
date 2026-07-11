@@ -242,7 +242,13 @@ export default function Header({ onNavigate }) {
         </button>
 
         <button
-        onClick={() => navigate("essayer")}
+        type="button"
+        onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setMenuOpen(false);
+        onNavigate?.("essayer");
+        }}
           style={{
             padding: "11px 18px",
             borderRadius: "12px",
