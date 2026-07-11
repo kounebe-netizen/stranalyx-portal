@@ -184,7 +184,26 @@ export default function Header({ onNavigate }) {
             label="Contact"
             onClick={() => navigate("contact")}
             color={colors.text}
-          />
+            />
+            <button
+          onClick={() => navigate("essayer")}
+          style={{
+          width: "100%",
+          marginTop: "24px",
+          padding: "14px 18px",
+          borderRadius: "14px",
+          border: "none",
+          background: colors.actionBlue,
+          color: "#FFFFFF",
+          fontWeight: 900,
+          fontSize: "16px",
+          cursor: "pointer",
+          boxShadow: shadow.button,
+          }}
+          >
+          Essayer Stranalyx →
+        </button>
+          
         </div>
       )}
 
@@ -223,6 +242,7 @@ export default function Header({ onNavigate }) {
         </button>
 
         <button
+        onClick={() => navigate("essayer")}
           style={{
             padding: "11px 18px",
             borderRadius: "12px",
