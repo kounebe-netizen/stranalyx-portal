@@ -2,35 +2,41 @@ import portalTheme from "../../styles/portalTheme";
 import useBreakpoint from "../../hooks/useBreakpoint";
 
 export default function Hero({ onNavigate }) {
-  const { colors, shadow } = portalTheme;
+  const { colors } = portalTheme;
   const { isMobileOrTablet } = useBreakpoint();
 
   return (
     <section
-  style={{
-    ...heroStyle,
-    gridTemplateColumns: isMobileOrTablet ? "1fr" : "35% 65%",
-    padding: isMobileOrTablet ? "24px 16px 0" : heroStyle.padding,
-  }}
->
-      <div style={leftStyle}>
+      style={{
+        ...heroStyle,
+        gridTemplateColumns: isMobileOrTablet ? "1fr" : "35% 65%",
+        padding: isMobileOrTablet ? "24px 16px 0" : heroStyle.padding,
+        background: "#FFFFFF",
+      }}
+    >
+      <div
+        style={{
+          ...leftStyle,
+          background: "#FFFFFF",
+        }}
+      >
         <h1
-  style={{
-    ...titleStyle,
-    fontSize: isMobileOrTablet ? "34px" : titleStyle.fontSize,
-  }}
->
+          style={{
+            ...titleStyle,
+            fontSize: isMobileOrTablet ? "34px" : titleStyle.fontSize,
+          }}
+        >
           Pilotez. Décidez.
           <br />
           <span style={{ color: colors.actionBlue }}>Performez.</span>
         </h1>
 
         <p
-  style={{
-    ...subtitleStyle,
-    fontSize: isMobileOrTablet ? "18px" : subtitleStyle.fontSize,
-  }}
->
+          style={{
+            ...subtitleStyle,
+            fontSize: isMobileOrTablet ? "18px" : subtitleStyle.fontSize,
+          }}
+        >
           La plateforme intelligente pour la <strong>planification</strong>,
           <br />
           le <strong>suivi</strong> et l’<strong>évaluation</strong> de vos activités.
@@ -42,39 +48,43 @@ export default function Hero({ onNavigate }) {
         </div>
 
         <button
-        onClick={() => onNavigate?.("solutions")}
-        style={{
-    ...ctaStyle,
-    width: isMobileOrTablet ? "320px" : "auto",
-    display: "block",
-    margin: isMobileOrTablet ? "22px auto 0" : ctaStyle.marginTop,
-  }}
->Découvrir nos solutions ›</button>
+          onClick={() => onNavigate?.("solutions")}
+          style={{
+            ...ctaStyle,
+            width: isMobileOrTablet ? "100%" : "auto",
+            maxWidth: isMobileOrTablet ? "320px" : "none",
+            display: "block",
+            margin: isMobileOrTablet ? "22px auto 0" : ctaStyle.marginTop,
+          }}
+        >
+          Découvrir nos solutions ›
+        </button>
       </div>
 
       <div
-  style={{
-    ...rightStyle,
-    marginTop: isMobileOrTablet ? "34px" : 0,
-  }}
->
+        style={{
+          ...rightStyle,
+          marginTop: isMobileOrTablet ? "34px" : 0,
+          background: "#FFFFFF",
+        }}
+      >
         <h2
-  style={{
-    ...methodTitleStyle,
-    fontSize: isMobileOrTablet ? "18px" : methodTitleStyle.fontSize,
-  }}
->
+          style={{
+            ...methodTitleStyle,
+            fontSize: isMobileOrTablet ? "18px" : methodTitleStyle.fontSize,
+          }}
+        >
           Notre approche en trois étapes clés
         </h2>
 
         <div
-  style={{
-    ...stepsRowStyle,
-    flexDirection: isMobileOrTablet ? "column" : "row",
-    alignItems: "center",
-    gap: isMobileOrTablet ? "12px" : stepsRowStyle.gap,
-  }}
->
+          style={{
+            ...stepsRowStyle,
+            flexDirection: isMobileOrTablet ? "column" : "row",
+            alignItems: "center",
+            gap: isMobileOrTablet ? "12px" : stepsRowStyle.gap,
+          }}
+        >
           <Step title="PROJECTION" text="Anticiper et planifier avec précision" />
           <Arrow />
           <Step title="ACTION" text="Mettre en œuvre et piloter efficacement" />
@@ -110,10 +120,13 @@ const heroStyle = {
   gridTemplateColumns: "35% 65%",
   alignItems: "start",
   gap: "22px",
+  background: "#FFFFFF",
+  boxSizing: "border-box",
 };
 
 const leftStyle = {
   textAlign: "left",
+  background: "#FFFFFF",
 };
 
 const titleStyle = {
@@ -158,6 +171,7 @@ const ctaStyle = {
 const rightStyle = {
   textAlign: "center",
   paddingTop: "8px",
+  background: "#FFFFFF",
 };
 
 const methodTitleStyle = {
