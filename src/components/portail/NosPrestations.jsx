@@ -9,6 +9,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+import useBreakpoint from "../../hooks/useBreakpoint";
+
 const serviceGroups = [
   {
     number: "01",
@@ -109,65 +111,190 @@ const serviceGroups = [
 ];
 
 export default function NosPrestations() {
+  const { isMobileOrTablet } = useBreakpoint();
+
   return (
-    <main style={{ background: "#FFFFFF", minHeight: "100vh" }}>
-      <section style={pageStyle}>
-        <div style={heroStyle}>
-          <div>
-            <p style={eyebrowStyle}>NOS PRESTATIONS</p>
+    <main
+      style={{
+        background: "#FFFFFF",
+        minHeight: "100vh",
+        overflowX: "hidden",
+      }}
+    >
+      <section
+        style={{
+          ...pageStyle,
+          padding: isMobileOrTablet
+            ? "32px 20px 20px"
+            : "46px 40px 24px",
+        }}
+      >
+        {isMobileOrTablet ? (
+          <div
+            style={{
+              ...heroStyle,
+              gridTemplateColumns: "1fr 1fr",
+              gap: "16px",
+              alignItems: "start",
+              marginBottom: "34px",
+            }}
+          >
+            <div>
+              <p style={eyebrowStyle}>NOS PRESTATIONS</p>
 
-            <h1 style={heroTitleStyle}>
-              Bien plus qu'un logiciel : un accompagnement complet.
-            </h1>
+              <h1
+                style={{
+                  ...heroTitleStyle,
+                  fontSize: "34px",
+                  lineHeight: "1.08",
+                  marginBottom: 0,
+                }}
+              >
+                Bien plus qu'un logiciel : un accompagnement complet.
+              </h1>
+            </div>
 
-            <p style={heroTextStyle}>
+            <div
+              style={{
+                ...heroPanelStyle,
+                minHeight: "220px",
+                padding: "20px",
+                gap: "10px",
+                flexDirection: "column",
+                flexWrap: "nowrap",
+              }}
+            >
+              <div style={heroPanelLineStyle}>Analyser</div>
+              <ArrowRight size={22} />
+              <div style={heroPanelLineStyle}>Mettre en œuvre</div>
+              <ArrowRight size={22} />
+              <div style={heroPanelLineStyle}>Accompagner</div>
+            </div>
+
+            <p
+              style={{
+                ...heroTextStyle,
+                gridColumn: "1 / -1",
+                textAlign: "center",
+              }}
+            >
               La réussite d'un projet ne dépend pas uniquement de l'outil
               utilisé. Elle repose aussi sur une bonne compréhension des
               besoins, une mise en œuvre adaptée et un accompagnement dans la
               durée.
             </p>
           </div>
+        ) : (
+          <div style={heroStyle}>
+            <div>
+              <p style={eyebrowStyle}>NOS PRESTATIONS</p>
 
-          <div style={heroPanelStyle}>
-            <div style={heroPanelLineStyle}>Analyser</div>
-            <ArrowRight size={22} />
-            <div style={heroPanelLineStyle}>Mettre en œuvre</div>
-            <ArrowRight size={22} />
-            <div style={heroPanelLineStyle}>Accompagner</div>
+              <h1 style={heroTitleStyle}>
+                Bien plus qu'un logiciel : un accompagnement complet.
+              </h1>
+
+              <p style={heroTextStyle}>
+                La réussite d'un projet ne dépend pas uniquement de l'outil
+                utilisé. Elle repose aussi sur une bonne compréhension des
+                besoins, une mise en œuvre adaptée et un accompagnement dans la
+                durée.
+              </p>
+            </div>
+
+            <div style={heroPanelStyle}>
+              <div style={heroPanelLineStyle}>Analyser</div>
+              <ArrowRight size={22} />
+              <div style={heroPanelLineStyle}>Mettre en œuvre</div>
+              <ArrowRight size={22} />
+              <div style={heroPanelLineStyle}>Accompagner</div>
+            </div>
           </div>
-        </div>
+        )}
 
         <div style={groupsStyle}>
           {serviceGroups.map((group) => (
-            <section key={group.number} style={groupStyle}>
-              <div style={groupHeaderStyle}>
-                <div style={groupNumberStyle}>{group.number}</div>
+            <section
+              key={group.number}
+              style={{
+                ...groupStyle,
+                padding: isMobileOrTablet ? "24px 18px" : "32px",
+              }}
+            >
+              <div
+                style={{
+                  ...groupHeaderStyle,
+                  gridTemplateColumns: isMobileOrTablet
+                    ? "56px minmax(0, 1fr)"
+                    : "64px 1fr",
+                  gap: isMobileOrTablet ? "16px" : "20px",
+                }}
+              >
+                <div
+                  style={{
+                    ...groupNumberStyle,
+                    width: isMobileOrTablet ? "56px" : "64px",
+                    height: isMobileOrTablet ? "56px" : "64px",
+                    fontSize: isMobileOrTablet ? "18px" : "20px",
+                  }}
+                >
+                  {group.number}
+                </div>
 
-                <div>
-                  <h2 style={groupTitleStyle}>{group.title}</h2>
-                  <p style={groupDescriptionStyle}>{group.description}</p>
+                <div style={{ minWidth: 0 }}>
+                  <h2
+                    style={{
+                      ...groupTitleStyle,
+                      fontSize: isMobileOrTablet ? "24px" : "28px",
+                    }}
+                  >
+                    {group.title}
+                  </h2>
+
+                  <p
+                    style={{
+                      ...groupDescriptionStyle,
+                      fontSize: isMobileOrTablet ? "15px" : "16px",
+                    }}
+                  >
+                    {group.description}
+                  </p>
                 </div>
               </div>
 
               <div
                 style={{
                   ...servicesGridStyle,
-                  gridTemplateColumns:
-                    group.services.length === 3
-                      ? "repeat(3, 1fr)"
-                      : "repeat(2, 1fr)",
+                  gridTemplateColumns: isMobileOrTablet
+                    ? "1fr"
+                    : group.services.length === 3
+                    ? "repeat(3, 1fr)"
+                    : "repeat(2, 1fr)",
                 }}
               >
                 {group.services.map((service) => {
                   const Icon = service.icon;
 
                   return (
-                    <article key={service.title} style={serviceCardStyle}>
+                    <article
+                      key={service.title}
+                      style={{
+                        ...serviceCardStyle,
+                        padding: isMobileOrTablet ? "22px 18px" : "24px",
+                        minWidth: 0,
+                      }}
+                    >
                       <div style={serviceIconStyle}>
                         <Icon size={27} strokeWidth={2.2} />
                       </div>
 
-                      <h3 style={serviceTitleStyle}>{service.title}</h3>
+                      <h3
+                        style={{
+                          ...serviceTitleStyle,
+                          fontSize: isMobileOrTablet ? "19px" : "20px",
+                        }}
+                      >
+                        {service.title}
+                      </h3>
 
                       <ul style={serviceListStyle}>
                         {service.items.map((item) => (
@@ -184,8 +311,23 @@ export default function NosPrestations() {
           ))}
         </div>
 
-        <div style={ctaStyle}>
-          <h2 style={ctaTitleStyle}>Votre projet est unique.</h2>
+        <div
+          style={{
+            ...ctaStyle,
+            marginLeft: isMobileOrTablet ? "-20px" : 0,
+            marginRight: isMobileOrTablet ? "-20px" : 0,
+            borderRadius: isMobileOrTablet ? "0" : "28px",
+            padding: isMobileOrTablet ? "30px 24px" : "34px 42px",
+          }}
+        >
+          <h2
+            style={{
+              ...ctaTitleStyle,
+              fontSize: isMobileOrTablet ? "26px" : "30px",
+            }}
+          >
+            Votre projet est unique.
+          </h2>
 
           <p style={ctaTextStyle}>
             Discutons de vos objectifs afin de définir la solution et le niveau
@@ -201,6 +343,7 @@ const pageStyle = {
   maxWidth: "1200px",
   margin: "0 auto",
   padding: "46px 40px 80px",
+  boxSizing: "border-box",
 };
 
 const heroStyle = {
@@ -246,6 +389,7 @@ const heroPanelStyle = {
   padding: "30px",
   color: "#0B57D0",
   flexWrap: "wrap",
+  boxSizing: "border-box",
 };
 
 const heroPanelLineStyle = {
@@ -256,6 +400,7 @@ const heroPanelLineStyle = {
   fontSize: "15px",
   fontWeight: "900",
   boxShadow: "0 12px 24px rgba(8,47,99,.10)",
+  textAlign: "center",
 };
 
 const groupsStyle = {
@@ -270,6 +415,7 @@ const groupStyle = {
   border: "1px solid #E5ECF5",
   boxShadow: "0 20px 45px rgba(8,47,99,.09)",
   padding: "32px",
+  boxSizing: "border-box",
 };
 
 const groupHeaderStyle = {
@@ -317,6 +463,7 @@ const serviceCardStyle = {
   background: "#F8FBFF",
   border: "1px solid #E5ECF5",
   padding: "24px",
+  boxSizing: "border-box",
 };
 
 const serviceIconStyle = {
@@ -358,6 +505,7 @@ const ctaStyle = {
   color: "#FFFFFF",
   padding: "34px 42px",
   textAlign: "center",
+  boxSizing: "border-box",
 };
 
 const ctaTitleStyle = {
