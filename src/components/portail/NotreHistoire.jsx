@@ -7,6 +7,8 @@ import {
   Grape,
 } from "lucide-react";
 
+import useBreakpoint from "../../hooks/useBreakpoint";
+
 const foundations = [
   {
     icon: Handshake,
@@ -41,19 +43,20 @@ const foundations = [
 ];
 
 export default function NotreHistoire() {
+  const { isMobileOrTablet } = useBreakpoint();
   return (
     <main style={{ background: "#FFFFFF", minHeight: "100vh" }}>
       <section
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "38px 40px 70px",
+          padding: isMobileOrTablet ? "28px 20px 50px" : "38px 40px 70px",
         }}
       >
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.2fr 0.8fr",
+            gridTemplateColumns: isMobileOrTablet ? "1fr" : "1.2fr 0.8fr",
             gap: "60px",
             alignItems: "center",
           }}
@@ -113,19 +116,20 @@ export default function NotreHistoire() {
 
           <div
             style={{
-              height: "650px",
+              height: isMobileOrTablet ? "auto" : "650px",
+              minHeight: isMobileOrTablet ? "560px" : undefined,
               borderRadius: "32px",
               background:
                 "linear-gradient(135deg,#EAF2FF 0%,#D8E9FF 45%,#F7FAFF 100%)",
               boxShadow: "0 25px 60px rgba(8,47,99,.12)",
-              padding: "34px",
+              padding: isMobileOrTablet ? "28px 20px" : "34px",
               position: "relative",
             }}
           >
             <div
               style={{
                 position: "absolute",
-                left: "61px",
+                left: isMobileOrTablet ? "49px" : "61px",
                 top: "58px",
                 bottom: "58px",
                 width: "2px",
@@ -152,8 +156,8 @@ export default function NotreHistoire() {
                     key={item.title}
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "58px 1fr",
-                      gap: "18px",
+                      gridTemplateColumns: isMobileOrTablet ? "58px minmax(0, 1fr)" : "58px 1fr",
+                      gap: isMobileOrTablet ? "14px" : "18px",
                       alignItems: "center",
                     }}
                   >

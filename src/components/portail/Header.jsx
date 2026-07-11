@@ -6,6 +6,12 @@ export default function Header({ onNavigate }) {
   const { colors, shadow } = portalTheme;
   const { isMobileOrTablet } = useBreakpoint();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = (page) => {
+    setMenuOpen(false);
+    onNavigate?.(page);
+  };
+
   return (
     <header
       style={{
@@ -16,6 +22,8 @@ export default function Header({ onNavigate }) {
         alignItems: "center",
         justifyContent: "space-between",
         padding: isMobileOrTablet ? "0 16px" : "0 40px",
+        position: "relative",
+        zIndex: 1000,
       }}
     >
       {/* Logo */}
@@ -55,7 +63,7 @@ export default function Header({ onNavigate }) {
         </div>
       </div>
 
-      {/* Menu */}
+      {/* Menu desktop */}
       <nav
         style={{
           display: isMobileOrTablet ? "none" : "flex",
@@ -68,174 +76,119 @@ export default function Header({ onNavigate }) {
         }}
       >
         <span
-        style={{ color: colors.actionBlue, cursor: "pointer" }}
-        onClick={() => onNavigate?.("portail")}
+          style={{ color: colors.actionBlue, cursor: "pointer" }}
+          onClick={() => navigate("portail")}
         >
-        Accueil
-        </span>
-        <span
-        style={{ cursor: "pointer" }}
-        onClick={() => onNavigate?.("histoire")}
-        >
-        Notre histoire
-        </span>
-        <span
-        style={{ cursor: "pointer" }}
-        onClick={() => onNavigate?.("solutions")}
-        >
-        Nos solutions
-        </span>
-        <span
-        style={{ cursor: "pointer" }}
-        onClick={() => onNavigate?.("prestations")}
-        >
-        Nos prestations
+          Accueil
         </span>
 
         <span
-        style={{ cursor: "pointer" }}
-        onClick={() => onNavigate?.("documentation")}
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("histoire")}
         >
-        Documentation
+          Notre histoire
         </span>
 
         <span
-        style={{ cursor: "pointer" }}
-        onClick={() => onNavigate?.("contact")}
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("solutions")}
         >
-        Contact
+          Nos solutions
         </span>
 
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("prestations")}
+        >
+          Nos prestations
+        </span>
+
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("documentation")}
+        >
+          Documentation
+        </span>
+
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("contact")}
+        >
+          Contact
+        </span>
       </nav>
 
+      {/* Bouton menu mobile */}
       {isMobileOrTablet && (
-  <button
-    onClick={() => setMenuOpen(!menuOpen)}
-    style={{
-      fontSize: "28px",
-      background: "transparent",
-      border: "none",
-      color: colors.stranalyxBlue,
-      cursor: "pointer",
-    }}
-  >
-    {menuOpen ? "✕" : "☰"}
-  </button>
-)}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            fontSize: "28px",
+            background: "transparent",
+            border: "none",
+            color: colors.stranalyxBlue,
+            cursor: "pointer",
+          }}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      )}
 
-  {isMobileOrTablet && menuOpen && (
-  <div
-    style={{
-      position: "absolute",
-      top: "78px",
-      left: 0,
-      right: 0,
-      background: colors.white,
-      borderTop: `1px solid ${colors.border}`,
-      padding: "20px",
-      textAlign: "left",
-    }}
-  >
-    <button
-  style={{
-    display: "block",
-    background: "transparent",
-    border: "none",
-    padding: 0,
-    color: colors.actionBlue,
-    fontWeight: 700,
-    fontSize: "16px",
-    cursor: "pointer",
-    textAlign: "left",
-  }}
->
-  Accueil
-</button>
+      {/* Menu mobile */}
+      {isMobileOrTablet && menuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "78px",
+            left: 0,
+            right: 0,
+            background: colors.white,
+            borderTop: `1px solid ${colors.border}`,
+            padding: "20px",
+            textAlign: "left",
+            boxShadow: "0 12px 24px rgba(8, 47, 99, 0.12)",
+            zIndex: 9999,
+          }}
+        >
+          <MobileMenuButton
+            label="Accueil"
+            onClick={() => navigate("portail")}
+            color={colors.actionBlue}
+          />
 
-  <button
-  style={{
-    display: "block",
-    marginTop: "16px",
-    background: "transparent",
-    border: "none",
-    padding: 0,
-    color: colors.text,
-    fontSize: "16px",
-    cursor: "pointer",
-    textAlign: "left",
-  }}
->
-  Notre histoire
-</button>
+          <MobileMenuButton
+            label="Notre histoire"
+            onClick={() => navigate("histoire")}
+            color={colors.text}
+          />
 
-  <button
-  style={{
-    display: "block",
-    marginTop: "16px",
-    background: "transparent",
-    border: "none",
-    padding: 0,
-    color: colors.text,
-    fontSize: "16px",
-    cursor: "pointer",
-    textAlign: "left",
-  }}
->
-  Nos solutions
-</button>
+          <MobileMenuButton
+            label="Nos solutions"
+            onClick={() => navigate("solutions")}
+            color={colors.text}
+          />
 
- <button
-  style={{
-    display: "block",
-    marginTop: "16px",
-    background: "transparent",
-    border: "none",
-    padding: 0,
-    color: colors.text,
-    fontSize: "16px",
-    cursor: "pointer",
-    textAlign: "left",
-  }}
->
-  Nos prestations
-</button>
+          <MobileMenuButton
+            label="Nos prestations"
+            onClick={() => navigate("prestations")}
+            color={colors.text}
+          />
 
-  <button
-  style={{
-    display: "block",
-    marginTop: "16px",
-    background: "transparent",
-    border: "none",
-    padding: 0,
-    color: colors.text,
-    fontSize: "16px",
-    cursor: "pointer",
-    textAlign: "left",
-  }}
->
-  Ressources
-</button>
+          <MobileMenuButton
+            label="Documentation"
+            onClick={() => navigate("documentation")}
+            color={colors.text}
+          />
 
-  <button
-  style={{
-    display: "block",
-    marginTop: "16px",
-    background: "transparent",
-    border: "none",
-    padding: 0,
-    color: colors.text,
-    fontSize: "16px",
-    cursor: "pointer",
-    textAlign: "left",
-  }}
->
-  Contact
-</button>
+          <MobileMenuButton
+            label="Contact"
+            onClick={() => navigate("contact")}
+            color={colors.text}
+          />
+        </div>
+      )}
 
-  </div>
-  )}
-
-      {/* Actions */}
+      {/* Actions desktop */}
       <div
         style={{
           display: isMobileOrTablet ? "none" : "flex",
@@ -252,7 +205,7 @@ export default function Header({ onNavigate }) {
             cursor: "pointer",
           }}
         >
-          🌐  FR ▼
+          🌐 FR ▼
         </button>
 
         <button
@@ -285,5 +238,28 @@ export default function Header({ onNavigate }) {
         </button>
       </div>
     </header>
+  );
+}
+
+function MobileMenuButton({ label, onClick, color }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        display: "block",
+        width: "100%",
+        marginTop: label === "Accueil" ? 0 : "16px",
+        background: "transparent",
+        border: "none",
+        padding: 0,
+        color,
+        fontWeight: 700,
+        fontSize: "16px",
+        cursor: "pointer",
+        textAlign: "left",
+      }}
+    >
+      {label}
+    </button>
   );
 }
